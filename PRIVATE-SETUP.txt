@@ -1,0 +1,80 @@
+M.R.X COMPUTER SOLUTIONS
+PRIVATE EDITING SETUP
+
+WHAT THIS SETUP DOES
+
+The admin page lets you edit product listings, personalize supported page text,
+and view/update customer requests stored in Supabase. Requests are shared
+between devices; products and page text remain saved only in this browser.
+See PUBLIC-SETUP.txt to configure Supabase and publish the site on GitHub Pages.
+
+FIRST-TIME SETUP ON WINDOWS
+
+1. Keep the whole project together in one folder, for example:
+   C:\Users\M.R.X\Documents\m.r.x web
+
+2. Confirm that these files are together in that folder:
+   admin.html
+   admin.js
+   admin-auth.js
+   mrx-backend-config.js
+   mrx-backend.js
+   mrx-site.js
+   supabase-setup.sql
+   acrylic-buttons.css
+   index.html
+   home.html
+   computer-repair.html
+   computer-sales.html
+   submitted.html
+   Any images used by the pages
+
+3. Install Python from https://www.python.org/downloads/ if the "py" command
+   is not available on your computer.
+
+4. Open Windows PowerShell.
+
+5. Start a local-only web server by running these commands:
+   cd "C:\Users\M.R.X\Documents\m.r.x web"
+   py -m http.server 8000 --bind 127.0.0.1
+
+   If your computer uses "python" instead of "py", run:
+   python -m http.server 8000 --bind 127.0.0.1
+
+   Keep this PowerShell window open while you use the site. The 127.0.0.1
+   binding makes this server accessible only from this computer.
+
+6. Configure Supabase by following PUBLIC-SETUP.txt. Then open:
+   http://127.0.0.1:8000/admin.html
+
+7. Sign in with the admin user created in Supabase. Open public pages to test:
+   http://127.0.0.1:8000/index.html
+   http://127.0.0.1:8000/computer-sales.html
+   http://127.0.0.1:8000/submitted.html
+
+USING THE DASHBOARD
+
+- Products: add, edit, or delete products. Product details appear on the
+  computer-sales page in this same browser. Drag one JPG, PNG, or WebP image
+  into the product image area, or choose an image from your device. Images are
+  resized and saved with the product in this browser.
+- Page personalization: edit the supported text fields, save, then reload the
+  affected page to see the change.
+- Requests: submissions from the Home contact and Computer Repair forms are
+  stored in Supabase and can be managed from any signed-in admin browser.
+
+IMPORTANT LIMITATIONS
+
+- Product and page-copy edits are still browser-local. Use the same browser
+  profile and exact address to keep seeing those edits.
+- Do not use a private/incognito window for changes you want to keep.
+- Clearing this site's browser data can erase local products/page copy.
+  Supabase requests remain stored in the shared database.
+- Keep public sign-ups disabled in Supabase and create admin accounts only for
+  trusted users. Never publish the Supabase service-role/secret key.
+- The dashboard does not edit HTML source files. Browser-local product and
+  page-copy edits do not automatically publish to the public website.
+
+TO STOP THE SERVER
+
+Return to the PowerShell window running the server and press Ctrl+C.

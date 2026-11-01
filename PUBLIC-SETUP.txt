@@ -1,0 +1,74 @@
+M.R.X COMPUTER SOLUTIONS
+PUBLISH WITH GITHUB PAGES AND SUPABASE
+
+GitHub Pages hosts the website files. Supabase provides the shared database
+and admin sign-in required for requests to work across browsers and devices.
+The website sends only details entered into its contact and repair forms.
+
+1. CREATE THE SUPABASE PROJECT
+
+- Create a project at https://supabase.com and keep its database password private.
+- In the Supabase SQL Editor, open supabase-setup.sql from this project, copy
+  its contents, and run the SQL. This creates the requests table and access
+  rules. Visitors can submit requests but cannot read them.
+- In Authentication settings, turn off public sign-ups.
+- In Authentication > Users, create your admin user and set its email/password.
+  Only people with an account you create should be able to sign in.
+- In Project Settings > API, copy the Project URL and the anon/public key
+  (or publishable key if the dashboard shows the newer key format).
+  Never use or publish the service_role/secret key.
+
+2. CONFIGURE THE WEBSITE
+
+- Open mrx-backend-config.js.
+- Put the Supabase Project URL in supabaseUrl and the anon/public key in
+  supabaseAnonKey. Keep the quotes. These public values are needed by the
+  browser; database policies protect the customer requests.
+- Do not put an admin password, service-role key, or other secret in any
+  website file.
+
+3. PUBLISH ON GITHUB PAGES
+
+- Upload/push the project files to a GitHub repository. Include
+  mrx-backend-config.js, mrx-backend.js, supabase-setup.sql, admin-auth.js,
+  admin.js, and all HTML/CSS/image files.
+- In the repository, open Settings > Pages. Select the branch and folder that
+  contain index.html, then save.
+- Wait for GitHub Pages to publish. Open the published HTTPS website and test
+  both the Home contact form and the Computer Repair form.
+- Open the published /admin.html address and sign in with the admin account
+  created in Supabase. Use Requests > Refresh list to see submissions.
+
+HOW REQUESTS WORK
+
+- Home contact requests include name, email, phone, issue, and source page.
+- Computer repair requests include those fields plus the selected service.
+- Requests are stored in Supabase and are visible to signed-in admins on any
+  device/browser. Status changes and deletions are shared too.
+- Old requests saved in a browser before this setup are not automatically
+  copied to Supabase.
+- Product listings and page personalization are still saved in the current
+  browser only. This setup shares customer form submissions, not every page
+  view, browser/device detail, or local admin edit. The latest confirmation
+  is kept temporarily in that browser tab and is not the shared request store.
+
+SECURITY AND PRIVACY
+
+- Keep public sign-ups disabled. Anyone with a Supabase user account can use
+  the admin dashboard, so create accounts only for trusted admins.
+- The anon/public key is expected to appear in public website code. The SQL
+  policies prevent anonymous visitors from reading, changing, or deleting
+  submitted requests. Never publish the service-role/secret key.
+- Use the HTTPS URL provided by GitHub Pages. Do not collect information that
+  customers do not need to provide. Back up the Supabase database regularly.
+- Supabase's public form endpoint can receive spam. Review submissions
+  regularly; add a CAPTCHA or server-side rate limit if abuse becomes a problem.
+
+LOCAL PREVIEW
+
+To preview the site on Windows, run from PowerShell:
+  cd "C:\Users\M.R.X\Documents\m.r.x web"
+  py -m http.server 8000 --bind 127.0.0.1
+
+Then open http://127.0.0.1:8000. Configure the Supabase URL/key before testing
+form submission. Press Ctrl+C in PowerShell to stop the local server.
